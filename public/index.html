@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <script type="text/x-handlebars" data-template-name="users">
+      <section id="userapp">
+      <h1> Users </h1>
+      <section id="main">
+      <table class="table table-striped">
+        <tr>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+        
+        {{#each itemController="user"}}
+        <tr>
+          <td {{bind-attr class="isEditingFirstName:editing"}}>
+            {{#if isEditingFirstName}}
+              {{edit-user class="edit" value=firstName focus-out="acceptChanges" insert-newline="acceptChanges"}}
+            {{else}}
+              <label {{action "editUserFirstName" on="doubleClick"}}>{{firstName}}</label>
+            {{/if}}
+          </td>
+          <td {{bind-attr class="isEditingLastName:editing"}}>  
+            {{#if isEditingLastName}}
+              {{edit-user class="edit" value=lastName focus-out="acceptChanges" insert-newline="acceptChanges"}}
+            {{else}}
+              <label {{action "editUserLastName" on="doubleClick"}}>{{lastName}}</label>
+            {{/if}}
+          </td>
+          <td {{bind-attr class="isEditingEmail:editing"}}>
+            {{#if isEditingEmail}}
+              {{edit-user class="edit" value=email focus-out="acceptChanges" insert-newline="acceptChanges"}}
+            {{else}}
+              <label {{action "editUserEmail" on="doubleClick"}}>{{email}}</label>
+            {{/if}}
+          </td>
+          <td>
+          <button class="btn-danger" {{action "deleteUser"}}>delete user</button>
+        </tr>
+        {{/each}}
+        <tr>
+          <td>
+          {{input type="text" id="new-first" placeholder="First Name" value=newFirstName action="createUser"}}
+          </td>
+          <td>
+          {{input type="text" id="new-last" placeholder="Last Name" value=newLastName action="createUser"}}
+          </td>
+          <td>
+          {{input type="email" id="new-email" placeholder="Email" value=newEmail action="createUser"}}
+          </td>
+          <td></td>
+        </tr>
+      </table>
+      </section>
+
+      <footer id="footer">
+        <span id="user-count">
+          <strong>{{remaining}}</strong> {{inflection}}
+        </span>
+      </footer>
+      </section>
+      <footer id="info">
+        <p>Fill in fields for new user and hit enter</p>
+        <p>OR</p>
+        <p>Double-click a field to edit</p>
+      </footer>
+    </script>
+    <script src="js/libs/jquery-1.10.2.min.js"></script>
+    <script src="js/libs/handlebars-1.0.0.js"></script>
+    <script src="js/libs/ember-1.0.0.js"></script>
+    <script src="js/libs/ember-data.js"></script>
+    <script src="js/libs/localstorage_adapter.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/models/user.js"></script>
+    <script src="js/controllers/users_controller.js"></script>
+    <script src="js/controllers/user_controller.js"></script>
+    <script src="js/views/edit_user_view.js"></script>
+    <script src="js/libs/bootstrap.min.js"></script>
+  </body>
+</html>
